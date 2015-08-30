@@ -2,7 +2,7 @@
 ## author: Len Greski
 ## date: 15 August 2015
 ## prerequisites: download http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/New_York/REVISEDPUMS5_36.TXT from U.S. Census website
-##                unzip file to ./data subdirectory under R working directory
+##                to ./data subdirectory under R working directory
 ##
 ## NOTE: raw data file is 410Mb in size, this will take a while on smaller machine, and 
 ##       it generates an R data object that is 460.5Mb
