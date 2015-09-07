@@ -79,17 +79,17 @@ The code to evaluate each row and write it to the correct file is implemented as
      else {cat(x,file=outputHouseholdFile,sep="\n",append=TRUE)}
     })
 
-On a laptop with an Intel i5 processor, 8 Gb of RAM, and a 512 Gb solid state disk, we are able to split the data into the required output files in about one minute. While it is technically possible to write a program that reads the data row by row, initializes a row for a data frame, then builds the data frame with <code>rbind()</code>, the benefit of the file-based approach is its simplicity.
+On a laptop with an Intel i5 processor, 8 Gb of RAM, and a 512 Gb solid state disk, we are able to split the data into the required output files in about one minute. While it is technically possible to write a program that reads the data row by row, initializes a row for a data frame, then builds the data frame with <code>rbind(),</code> the benefit of the file-based approach is its simplicity.
 
 Having split the file into person and household records, we can use existing R functions to load the data, rather than building a custom parser to load the data into a data frame.
 
 <h2>Read Input Formats from the Codebook</h2>
 
-Taking another look at the code book spreadsheet, the tab for the person-level data has 1,219 rows. Manually creating the length vector for all these variables as required by the <code>read.fwf()</code> function would be tedious and difficult to debug.
+Taking another look at the code book spreadsheet, the tab for the person-level data has 1,219 rows. Manually creating the length vector for all these variables as required by the <code>read.fwf()</code> function would be tedious to create, and difficult to debug.
 
 Here is where knowing the best way to do something in R is invaluable. The spreadsheet itself can be used to generate the input length vector AND column names for the resulting data frame, not only saving a lot of tedious work, but also ensuring accuracy of the input arguments to <code>read.fwf()</code>.
 
-On closer inspection, we learn that many of the rows in the left part of the worksheet are duplicates because there is a set of columns in the middle of the spreadsheet that provide variable labels for each variable to its left.
+On closer inspection, we notice that many of the rows in the left part of the worksheet are duplicates because there is a set of columns in the middle of the spreadsheet that provide variable labels for each variable to its left.
 
 Therefore, we can read columns 1 - 7 with <code>read.xlsx()</code> and use the <code>data.table::unique()</code> function to eliminate the duplicates.
 
@@ -121,7 +121,7 @@ Also, to improve readability of the spreadsheet, the authors included a number o
 
 The <code>LEN</code> and <code>VARIABLE</code> columns in the code book are exactly what we need to specify in <code>read.fwf()</code> to avoid a lot of tedious manual effort building the vectors required for the <code>widths</code> and <code>col.names</code> arguments.
 
-For pedagogical purposes we explicitly created vectors for these arguments, but we could have referenced the vecotrs directly from the <code>codeBook</code> data frame. To minimize the memory allocation overhead in <code>read.fwf()</code>, we set the <code>n=</code> argument to 953076,the number of rows in the input file. The code to load the PUMS data into a data frame is as follows.
+For pedagogical purposes we explicitly created vectors for these arguments, but we could have referenced the vecotrs directly from the <code>codeBook</code> data frame. To reduce  the memory allocation overhead in <code>read.fwf()</code>, we set the <code>n=</code> argument to 953076,the number of rows in the input file. The code to load the PUMS data into a data frame is as follows.
 
     # set widths vector to LEN (length) column
     colWidths <- codeBook$LEN
@@ -148,4 +148,4 @@ We then replaced <code>read.fwf()</code> with <code>readr::read_fwf()</code> and
                            n_max=953076)
 
 <h2>Conclusion</h2>
-By analyzing the contents of the data and code book spreadsheet, it turns out that there is a very elegant R solution for processing this data. Substituting the high performance <code>readr::read_fwf()</code> for the base <code>read.fwf()</code> turns it into a high performance solution.  
+By analyzing the contents of the data and code book spreadsheet, it turns out that there is a very elegant R solution for processing this data. Substituting the high performance <code>readr::read_fwf()</code> for the base <code>read.fwf()</code> it also becomes a high performance solution.  
