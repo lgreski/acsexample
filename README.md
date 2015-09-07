@@ -13,7 +13,7 @@ The initial responses from other students explained that the file is a fixed len
 Pointing the student to the codebook was not sufficient for him to solve the problem on his own.  Since the problem was an interesting "real world" application of the material covered in *Getting and Cleaning Data,* we developed the solution that is stored within this Github repository.
 
 <h1 id=contents>Repository Contents</h1>
-The [lgreski/acsexample](https://github.com/lgreski/acsexample) repository includes three files that can be used to read the data from a single state's contribution to the [2000 American Community Survey Public Use Microdata Sample](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/). The [American Community Survey](https://www.census.gov/programs-surveys/acs/technical-documentation/pums.html) includes extensive documentation, ranging from code books to user notes and errata. A complete inventory of all available [PUMS data](https://www.census.gov/programs-surveys/acs/data/pums.html) is also available on the U.S. Census Bureau website.
+The [lgreski/acsexample](https://github.com/lgreski/acsexample) repository includes three files that can be used to read the data from a single state's contribution to the [2000 American Community Survey Public Use Microdata Sample](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/). The [American Community Survey](https://www.census.gov/programs-surveys/acs/technical-documentation/pums.html) includes extensive documentation, ranging from code books to user notes and errata. A complete inventory of all available [PUMS data](https://www.census.gov/programs-surveys/acs/data/pums.html) is also available on the U.S. Census Bureau website. Additional files in the repository include the README.md and images that are referenced within the README.
 
 <table>
 <tr><th>File Name</th><th>Description</th></tr>
@@ -28,7 +28,9 @@ The [lgreski/acsexample](https://github.com/lgreski/acsexample) repository inclu
 
 Techniques for reading data from a variety of sources are covered during weeks one and two, including XML, JSON, Excel files, application APIs, and other sources.
 
-One of the key challenges faced by students in the Johns Hopkins Data Science Specialization is how to generalize the teaching of a specific technique to make it usable to solve problems beyond the specific example\(s\) demonstrated in the lectures.  
+One of the key challenges faced by students in the Johns Hopkins Data Science Specialization is how to generalize the teaching of a specific technique to make it usable to solve problems beyond the specific example\(s\) demonstrated in the lectures.
+
+To solve this particular problem, we needed to combine multiple techniques that we had learned in the class, in a manner that would not be obvious to many students enrolled in the class.  
 
 As a learning exercise, the solution posted for reading the PUMS data is noteworthy because it combines three techniques into an elegant solution for reading this data in R, including:
 
@@ -45,11 +47,9 @@ To build a data frame that contains the person-level data from a particular stat
 
 Our task here is to read the PUMS data for the state of New York, which was ranked \#3 in population as of the 2000 Census, with just under [18 million](https://en.wikipedia.org/wiki/2000_United_States_Census#State_rankings) in population. As expected the PUMS data file is relatively large: 411.9 Mb.
 
-To do so, we need to understand the structure of the input data file. Fortunately, there is plenty of documentation about [the 2000 PUMS data](http://www.census.gov/prod/cen2000/doc/pums.pdf.), thanks to the U.S. Census Bureau. In addition to a 724 page user guide, data layouts and value labels for the 5%  sample are explained in a series of [Excel spreadsheets](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/) stored along with the state by state data.
+To complete our task, we need to understand the structure of the input data file. Fortunately, there is plenty of documentation about [the 2000 PUMS data](http://www.census.gov/prod/cen2000/doc/pums.pdf.), thanks to the U.S. Census Bureau \(and U.S. taxpayers\). In addition to a 724 page user guide, data layouts and value labels for the 5%  sample are explained in a series of [Excel spreadsheets](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/) stored along with the state by state data.
 
-The [5% sample code book](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/5%_PUMS_record_layout.xls) spreadsheet contains two worksheets: Housing and Person.
-
-The Housing Units tab explains variables by column number in the left part of the worksheet, and provides value labels for the categorical variables (factors) that are in the survey, as illustrated below.
+The [5% sample code book](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/5%_PUMS_record_layout.xls) spreadsheet contains two worksheets: Housing and Person. The Housing Units tab explains variables by column number in the left part of the worksheet, and provides value labels for the categorical variables (factors) that are in the survey, as illustrated below.
 
 <img src="PUMS household.png" alt="Drawing" style="width: 550px;" />
 
@@ -57,7 +57,9 @@ The Person worksheet includes the same information for person records.
 
 <img src="PUMS person.png" alt="Drawing" style="width: 550px;" />
 
-When we look at the raw data file for person records, we find that there is not a predictable relationsihp between housing records and person records in the data file (i.e. 1 housing unit, then 3 person units, then 1 housing unit, and so on). The key that associates the two record types is SERIALNO -- the Housing / Group Quarters \(GQ\) Unit Serial Number.
+When we look at the raw data file for person records, we find that there is not a predictable relationsihp between housing records and person records in the data file (i.e. 1 housing unit, then 3 person units, then 1 housing unit, and so on). The key that associates the two record types is SERIALNO -- the Housing / Group Quarters \(GQ\) Unit Serial Number. The following snapshot from the raw data illustrates the problem, as the first household is associated with 3 person records, and the second household is associated with 5 person records.
+
+<img src="PUMS raw data.png" alt="Drawing" style="width: 550px;" />
 
 Therefore, the easiest way to split the file is to use <code>readLines()</code> to read the entire file as a set of character strings, and then, record by record, check the first character to see whether it is P or H.
 
@@ -77,17 +79,17 @@ The code to evaluate each row and write it to the correct file is implemented as
      else {cat(x,file=outputHouseholdFile,sep="\n",append=TRUE)}
     })
 
-On a laptop with an Intel i5 processor, 8 Gb of RAM, and a 512 Gb solid state disk, we are able to split the data into the required output files in about one minute. While it is probably possible to write a program that reads the data row by row, initializes a row for a data frame, then builds the data frame with <code>rbind()</code>, the benefit of this approach is its simplicity.
+On a laptop with an Intel i5 processor, 8 Gb of RAM, and a 512 Gb solid state disk, we are able to split the data into the required output files in about one minute. While it is technically possible to write a program that reads the data row by row, initializes a row for a data frame, then builds the data frame with <code>rbind()</code>, the benefit of the file-based approach is its simplicity.
 
 Having split the file into person and household records, we can use existing R functions to load the data, rather than building a custom parser to load the data into a data frame.
 
 <h2>Read Input Formats from the Codebook</h2>
 
-Taking another look at the code book spreadsheet, the tab for the person-level data has 1,219 rows. I couldn't see myself typing a length vector for all these variables as required by the <code>read.fwf()</code> function.
+Taking another look at the code book spreadsheet, the tab for the person-level data has 1,219 rows. Manually creating the length vector for all these variables as required by the <code>read.fwf()</code> function would be tedious and difficult to debug.
 
-Here is the part where knowing the best way to do something in R is invaluable. The spreadsheet itself can be used to generate the input length vector AND column names for the resulting data frame, saving a lot of tedious work.
+Here is where knowing the best way to do something in R is invaluable. The spreadsheet itself can be used to generate the input length vector AND column names for the resulting data frame, not only saving a lot of tedious work, but also ensuring accuracy of the input arguments to <code>read.fwf()</code>.
 
-On closer inspection, many of the rows in the left part of the worksheet are duplicates, because there is a set of columns in the middle of the spreadsheet that provide variable labels for each variable to its left.
+On closer inspection, we learn that many of the rows in the left part of the worksheet are duplicates because there is a set of columns in the middle of the spreadsheet that provide variable labels for each variable to its left.
 
 Therefore, we can read columns 1 - 7 with <code>read.xlsx()</code> and use the <code>data.table::unique()</code> function to eliminate the duplicates.
 
