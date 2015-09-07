@@ -1,14 +1,14 @@
 # American Community Survey Example
-====================================================
+
 * [Problem Summary](#summary)
 * [Repository Contents](#contents)
 * [Key Concepts from Getting and Cleaning Data](#concepts)
 * [The Process](#process)
 
 <h1 id=summary>Problem Summary </h1>
-During the August 2015 session for Coursera Johns Hopkins University *Getting and Cleaning Data* course, a question about how to read data from the 2000 American Community Survey Public Use Microdata Sample \(PUMS\) was posted to the Discussion Forum. The PUMS data includes both household and person level data in a single file. The original question raised by a student was, "How do I subset all the rows whose first character is 'P'?"
+During the August 2015 session for Coursera Johns Hopkins University *Getting and Cleaning Data* course, a question about how to read data from the 2000 American Community Survey Public Use Microdata Sample \(PUMS\) was posted to the Discussion Forum. The PUMS data includes both household and person level data in a single file, a technique not yet covered in the JHU Data Science series. The original question raised by a student was, "How do I subset all the rows whose first character is 'P'?"
 
-The initial responses from other students explained how the file is a fixed length file that should be read with <code>read.fwf()</code>, and referred him to the [2000 ACS PUMS codebook](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/5%25_PUMS_record_layout.xls).
+The initial responses from other students explained that the file is a fixed length file that should be read with <code>read.fwf()</code>, and referred him to the [2000 ACS PUMS codebook](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/5%25_PUMS_record_layout.xls) for additional information on how to read the file.
 
 Pointing the student to the codebook was not sufficient for him to solve the problem on his own.  Since the problem was an interesting "real world" application of the material covered in *Getting and Cleaning Data,* we developed the solution that is stored within this Github repository.
 
@@ -21,7 +21,7 @@ The [lgreski/acsexample](https://github.com/lgreski/acsexample) repository inclu
 <tr><td valign=top>read PUMS codebook.R</td><td>R script to read the American Community Survey Public Use Microdata Sample codebook and a single state's data. The codebook is distributed as a Microsoft Excel spreadsheet. The ACS survey data read is the output from the split PUMS person and households.R script. The script uses <code>read.fwf()</code> to read the survey data. </td></tr>
 <tr><td valign=top>read PUMS codebook - readr version.R</td><td>R script to read the American Community Survey Public Use Microdata Sample codebook and a single state's data. The codebook is distributed as a Microsoft Excel spreadsheet. The ACS survey data read is the output from the split PUMS person and households.R script. The script uses Hadley Wickham's <code>readr</code> package <code>read_fwf()</code> function to read the survey data.</td></tr>
 <tr><td valign=top>split PUMS person and households.R</td><td>R script to parse the census file and separate into two files for downstream processing: a person-level file and a household-level file. The script uses <code>readLines()</code> and <code>substr()</code> to split the data into the appropriate output files. </td></tr>
-<tr><td valign=top>\*.png</td><td>Graphics images to be embedded in the README.md file</td></tr>
+<tr><td valign=top>*.png</td><td>Graphics images to be embedded in the README.md file</td></tr>
 </table>
 
 <h1 id=concepts>Key Concepts from Getting and Cleaning Data</h1>
