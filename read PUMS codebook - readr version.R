@@ -4,8 +4,8 @@
 ## prerequisites: split the REVISEDPUMS5_36.TXT file into two separate files,
 ##                one for persons, and one for households
 ##
-## NOTE: n = 500 in read.fwf() to test program with a subset of records, as
-##       complete person file is 330Mb 
+## NOTE: n_max = 953076 in read_fwf() to tell R how much memory to allocate in advance,
+##       improving performance  
 ##
 startTime <- Sys.time()
 library(xlsx)
