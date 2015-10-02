@@ -121,7 +121,7 @@ Also, to improve readability of the spreadsheet, the authors included a number o
 
 The <code>LEN</code> and <code>VARIABLE</code> columns in the code book are exactly what we need to specify in <code>read.fwf()</code> to avoid a lot of tedious manual effort building the vectors required for the <code>widths</code> and <code>col.names</code> arguments.
 
-For pedagogical purposes we explicitly created vectors for these arguments, but we could have referenced the vecotrs directly from the <code>codeBook</code> data frame. To reduce  the memory allocation overhead in <code>read.fwf()</code>, we set the <code>n=</code> argument to 953076,the number of rows in the input file. The code to load the PUMS data into a data frame is as follows.
+For pedagogical purposes we explicitly created vectors for these arguments, but we could have referenced the vecotrs directly from the <code>codeBook</code> data frame. To reduce  the memory allocation overhead in <code>read.fwf()</code>, we set the <code>n=</code> argument to 953076, the number of rows in the input file. The code to load the PUMS data into a data frame is as follows.
 
     # set widths vector to LEN (length) column
     colWidths <- codeBook$LEN
