@@ -5,6 +5,7 @@
 *-Ex.R
 # RStudio files
 .Rproj.user/
+*.Rproj
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
@@ -19,3 +20,4 @@ vignettes/*.pdf
 *.xlsx
 *.XLS
 *.XLSX
+.Rproj.user
