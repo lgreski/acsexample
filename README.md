@@ -121,7 +121,7 @@ Also, to improve readability of the spreadsheet, the authors included a number o
 
 The <code>LEN</code> and <code>VARIABLE</code> columns in the code book are exactly what we need to specify in <code>read.fwf()</code> to avoid a lot of tedious manual effort building the vectors required for the <code>widths</code> and <code>col.names</code> arguments.
 
-For pedagogical purposes we explicitly created vectors for these arguments, but we could have referenced the vecotrs directly from the <code>codeBook</code> data frame. To reduce  the memory allocation overhead in <code>read.fwf()</code>, we set the <code>n=</code> argument to 953076, the number of rows in the input file. The code to load the PUMS data into a data frame is as follows.
+For pedagogical purposes we explicitly created vectors for these arguments, but we could have referenced the vectors directly from the <code>codeBook</code> data frame. To reduce  the memory allocation overhead in <code>read.fwf()</code>, we set the <code>n=</code> argument to 953076, the number of rows in the input file. The code to load the PUMS data into a data frame is as follows.
 
     # set widths vector to LEN (length) column
     colWidths <- codeBook$LEN
@@ -137,9 +137,11 @@ For pedagogical purposes we explicitly created vectors for these arguments, but 
                            stringsAsFactors=FALSE)
 
 
-The R code required to process the spreadsheet and create a data frame required only 11 statements, including two <code>library()</code> calls. Our laptop was able to read the 950K records and create a data frame in R in about 19.6 minutes. After posting this solution on the course Discussion Forum, David Hood \(a  Community TA\) wrote that earlier this year, Hadley Wickham had published an R package to dramatically speed the reading of data into R.
+The R code required to process the spreadsheet and create a data frame required only 11 statements, including two <code>library()</code> calls. Our laptop was able to read the 950K records and create a data frame in R in about 19.6 minutes. The resulting R data frame consumed 701.8Mb of memory. After posting this solution on the course Discussion Forum, David Hood \(a  Community TA\) wrote that earlier this year, Hadley Wickham had published an R package to dramatically speed the reading of data into R.
 
-We then replaced <code>read.fwf()</code> with <code>readr::read_fwf()</code> and reduced the load time from 19 minutes to 8.98 seconds.  Code for the  <code>readr::read_fwf()</code> solution is included below.
+We then replaced <code>read.fwf()</code> with <code>readr::read_fwf()</code> and reduced the load time from 19 minutes to 8.98 seconds. Additionally, the size of the data frame dropped from 701.8Mb to 341.2Mb, a greater than 50% reduction in memory use. 
+
+Code for the  <code>readr::read_fwf()</code> solution is included below.
 
     # use Wickham's readr package to read the data
     library(readr)
