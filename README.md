@@ -138,7 +138,7 @@ For pedagogical purposes we explicitly created vectors for these arguments, but 
                            stringsAsFactors=FALSE)
 
 
-The R code required to process the spreadsheet and create a data frame required only 11 statements, including two <code>library()</code> calls. Our laptop was able to read the 950K records and create a data frame in R in about 19.6 minutes. The resulting R data frame consumed 701.8Mb of memory. After posting this solution on the course Discussion Forum, David Hood \(a  Community TA\) wrote that earlier this year, Hadley Wickham had published an R package to dramatically speed the reading of data into R.
+The R code required to process the spreadsheet and create a data frame required only 11 statements, including two <code>library()</code> calls. Our laptop was able to read the 950K records and create a data frame in R in about 19.6 minutes. The resulting R data frame consumed 701.8Mb of memory. After posting this solution on the course Discussion Forum, David Hood \(a  Community Mentor\) wrote that earlier in 2015, Hadley Wickham had published an R package to dramatically speed the reading of data into R.
 
 We then replaced <code>read.fwf()</code> with <code>readr::read_fwf()</code> and reduced the load time from 19 minutes to 8.98 seconds. Additionally, the size of the data frame dropped from 701.8Mb to 341.2Mb, a greater than 50% reduction in memory use.
 
