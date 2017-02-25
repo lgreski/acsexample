@@ -22,6 +22,7 @@ The [lgreski/acsexample](https://github.com/lgreski/acsexample) repository inclu
 <tr><td valign=top>read PUMS codebook - readr version.R</td><td>R script to read the American Community Survey Public Use Microdata Sample codebook and a single state's data. The codebook is distributed as a Microsoft Excel spreadsheet. The ACS survey data read is the output from the split PUMS person and households.R script. The script uses Hadley Wickham's <code>readr</code> package <code>read_fwf()</code> function to read the survey data.</td></tr>
 <tr><td valign=top>split PUMS person and households.R</td><td>R script to parse the census file and separate into two files for downstream processing: a person-level file and a household-level file. The script uses <code>readLines()</code> and <code>substr()</code> to split the data into the appropriate output files. </td></tr>
 <tr><td valign=top>*.png</td><td>Graphics images to be embedded in the README.md file</td></tr>
+<tr><td valign=top>data/5%_PUMS_record_layout.xls</td><td>Local copy of codebook describing the PUMS data file layout.</td></tr>
 </table>
 
 <h1 id=concepts>Key Concepts from Getting and Cleaning Data</h1>
@@ -57,7 +58,7 @@ The Person worksheet includes the same information for person records.
 
 <img src="PUMS person.png" alt="Drawing" style="width: 550px;" />
 
-When we look at the raw data file for person records, we find that there is not a predictable relationsihp between housing records and person records in the data file (i.e. 1 housing unit, then 3 person units, then 1 housing unit, and so on). The key that associates the two record types is SERIALNO -- the Housing / Group Quarters \(GQ\) Unit Serial Number. The following snapshot from the raw data illustrates the problem, as the first household is associated with 3 person records, and the second household is associated with 5 person records.
+When we look at the raw data file for person records, we find that there is not a predictable relationship between housing records and person records in the data file (i.e. 1 housing unit, then 3 person units, then 1 housing unit, and so on). The key that associates the two record types is SERIALNO -- the Housing / Group Quarters \(GQ\) Unit Serial Number. The following snapshot from the raw data illustrates the problem, as the first household is associated with 3 person records, and the second household is associated with 5 person records.
 
 <img src="PUMS raw data.png" alt="Drawing" style="width: 550px;" />
 
@@ -79,7 +80,7 @@ The code to evaluate each row and write it to the correct file is implemented as
      else {cat(x,file=outputHouseholdFile,sep="\n",append=TRUE)}
     })
 
-On a laptop with an Intel i5 processor, 8 Gb of RAM, and a 512 Gb solid state disk, we are able to split the data into the required output files in about one minute. While it is technically possible to write a program that reads the data row by row, initializes a row for a data frame, then builds the data frame with <code>rbind(),</code> the benefit of the file-based approach is its simplicity.
+On a laptop with an Intel i5 processor, 8 Gb of RAM, and a 512 Gb solid state disk, we are able to split the data into the required output files in about one minute. While it is technically possible to write a program that reads the data row by row, initializes a row for a data frame, then builds the data frame with <code>rbind(),</code> the benefit of the file-based approach is its simplicity. Additionally, due to the way that `rbind()` allocates memory, it would perform significantly worse than using `readLines()`.
 
 Having split the file into person and household records, we can use existing R functions to load the data, rather than building a custom parser to load the data into a data frame.
 
@@ -139,7 +140,7 @@ For pedagogical purposes we explicitly created vectors for these arguments, but 
 
 The R code required to process the spreadsheet and create a data frame required only 11 statements, including two <code>library()</code> calls. Our laptop was able to read the 950K records and create a data frame in R in about 19.6 minutes. The resulting R data frame consumed 701.8Mb of memory. After posting this solution on the course Discussion Forum, David Hood \(a  Community TA\) wrote that earlier this year, Hadley Wickham had published an R package to dramatically speed the reading of data into R.
 
-We then replaced <code>read.fwf()</code> with <code>readr::read_fwf()</code> and reduced the load time from 19 minutes to 8.98 seconds. Additionally, the size of the data frame dropped from 701.8Mb to 341.2Mb, a greater than 50% reduction in memory use. 
+We then replaced <code>read.fwf()</code> with <code>readr::read_fwf()</code> and reduced the load time from 19 minutes to 8.98 seconds. Additionally, the size of the data frame dropped from 701.8Mb to 341.2Mb, a greater than 50% reduction in memory use.
 
 Code for the  <code>readr::read_fwf()</code> solution is included below.
 
