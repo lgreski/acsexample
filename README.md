@@ -13,6 +13,7 @@ The initial responses from other students explained that the file is a fixed len
 Pointing the student to the codebook was not sufficient for him to solve the problem on his own.  Since the problem was an interesting "real world" application of the material covered in *Getting and Cleaning Data,* we developed the solution that is stored within this Github repository.
 
 <h1 id=contents>Repository Contents</h1>
+
 The [lgreski/acsexample](https://github.com/lgreski/acsexample) repository includes three files that can be used to read the data from a single state's contribution to the [2000 American Community Survey Public Use Microdata Sample](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/). The [American Community Survey](https://www.census.gov/programs-surveys/acs/technical-documentation/pums.html) includes extensive documentation, ranging from code books to user notes and errata. A complete inventory of all available [PUMS data](https://www.census.gov/programs-surveys/acs/data/pums.html) is also available on the U.S. Census Bureau website. Additional files in the repository include the README.md and images that are referenced within the README.
 
 <table>
