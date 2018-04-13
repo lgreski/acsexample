@@ -6,7 +6,7 @@
 * [The Process](#process)
 
 <h1 id=summary>Problem Summary </h1>
-During the August 2015 session for Coursera Johns Hopkins University *Getting and Cleaning Data* course, a question about how to read data from the 2000 American Community Survey Public Use Microdata Sample (PUMS) was posted to the Discussion Forum. The PUMS data includes both household and person level data in a single file, a technique not yet covered in the JHU Data Science series. The original question raised by a student was, "How do I subset all the rows whose first character is 'P'?"
+During the August 2015 session for Coursera Johns Hopkins University <i>Getting and Cleaning Data</i> course, a question about how to read data from the 2000 American Community Survey Public Use Microdata Sample (PUMS) was posted to the Discussion Forum. The PUMS data includes both household and person level data in a single file, a technique not yet covered in the JHU Data Science series. The original question raised by a student was, "How do I subset all the rows whose first character is 'P'?"
 
 The initial responses from other students explained that the file is a fixed length file that should be read with <code>read.fwf()</code>, and referred him to the [2000 ACS PUMS codebook](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/5%25_PUMS_record_layout.xls) for additional information on how to read the file.
 
