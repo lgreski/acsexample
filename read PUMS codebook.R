@@ -10,17 +10,17 @@
 ## Prerequisite: download the 5PCT PUMS record layout spreadsheet from 
 ##               http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/5%25_PUMS_record_layout.xls
 ##
+
+
 startTime <- Sys.time()
-library(xlsx)
-## using vgrep() determine the row and column indexes
-## note that column names are in row 2
-colIndex <- 1:7
-rowIndex <- 2:1219
-codeBook <- read.xlsx("./data/5pct_PUMS_record_layout.xls",
-                      sheetIndex=2,
-                      colIndex=colIndex,
-                      rowIndex=rowIndex,
-                      stringsAsFactors=FALSE)
+
+# readxl version
+library(readxl)
+cellRange <- "A2:G1219"
+codeBook <- read_xls("./data/5%_PUMS_record_layout.xls",
+                    sheet=2,
+                    range=cellRange)
+
 ## remove blank rows
 codeBook <- codeBook[!is.na(codeBook$VARIABLE),]
 ## remove duplicate rows 
