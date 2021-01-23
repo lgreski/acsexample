@@ -49,7 +49,7 @@ To build a data frame that contains the person-level data from a particular stat
 
 Our task here is to read the PUMS data for the state of New York, which was ranked \#3 in population as of the 2000 Census, with just under [18 million](https://en.wikipedia.org/wiki/2000_United_States_Census#State_rankings) in population. As expected the PUMS data file is relatively large: 411.9 Mb.
 
-To complete our task, we need to understand the structure of the input data file. Fortunately, there is plenty of documentation about [the 2000 PUMS data](http://www.census.gov/prod/cen2000/doc/pums.pdf.), thanks to the U.S. Census Bureau \(and U.S. taxpayers\). In addition to a 724 page user guide, data layouts and value labels for the 5%  sample are explained in a series of [Excel spreadsheets](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/) stored along with the state by state data.
+To complete our task, we need to understand the structure of the input data file. Fortunately, there is plenty of documentation about [the 2000 PUMS data](http://www.census.gov/prod/cen2000/doc/pums.pdf), thanks to the U.S. Census Bureau \(and U.S. taxpayers\). In addition to a 724 page user guide, data layouts and value labels for the 5%  sample are explained in a series of [Excel spreadsheets](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/) stored along with the state by state data.
 
 The [5% sample code book](http://www2.census.gov/census_2000/datasets/PUMS/FivePercent/5%_PUMS_record_layout.xls) spreadsheet contains two worksheets: Housing and Person. The Housing Units tab explains variables by column number in the left part of the worksheet, and provides value labels for the categorical variables (factors) that are in the survey, as illustrated below.
 
